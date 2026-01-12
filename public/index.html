@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea Drop API Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        code {
+            background-color: #f3f4f6;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+        pre {
+            background-color: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: inherit;
+        }
+        .endpoint-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .badge-get { background-color: #3b82f6; color: white; }
+        .badge-post { background-color: #10b981; color: white; }
+        .badge-put { background-color: #f59e0b; color: white; }
+        .badge-delete { background-color: #ef4444; color: white; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        a {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: #2563eb;
+        }
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 scroll-smooth">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <h1 class="text-3xl font-bold text-gray-900">💡 Idea Drop API</h1>
+                <p class="text-gray-600 mt-1">RESTful API Documentation</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Introduction -->
+            <section class="bg-white rounded-lg shadow p-6 mb-8">
+                <p class="text-lg text-gray-700 mb-4">
+                    A RESTful API backend for managing ideas with user authentication and authorization. Built with Node.js, Express, and MongoDB.
+                </p>
+                
+                <!-- Table of Contents -->
+                <div class="mt-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 Table of Contents</h2>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#tech-stack">Tech Stack</a></li>
+                        <li><a href="#prerequisites">Prerequisites</a></li>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#configuration">Configuration</a></li>
+                        <li><a href="#api-documentation">API Documentation</a></li>
+                        <li><a href="#project-structure">Project Structure</a></li>
+                        <li><a href="#authentication">Authentication</a></li>
+                        <li><a href="#error-handling">Error Handling</a></li>
+                        <li><a href="#usage-examples">Usage Examples</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Features -->
+            <section id="features" class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">✨ Features</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">User Authentication</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                            <li>User registration with email and password</li>
+                            <li>User login with JWT tokens</li>
+                            <li>Token refresh mechanism</li>
+                            <li>Protected routes with authentication middleware</li>
+                            <li>Cookie-based refresh token storage</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Idea Management</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                            <li>Create, read, update, and delete ideas</li>
+                            <li>Paginated idea listing</li>
+                            <li>User-specific idea ownership</li>
+                            <li>Authorization checks for updates and deletions</li>
+                            <li>Tag support for ideas</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Security</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                            <li>Password hashing with bcrypt</li>
+                            <li>JWT-based authentication</li>
+                            <li>HTTP-only cookies for refresh tokens</li>
+                            <li>CORS enabled</li>
+                            <li>Input validation</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tech Stack -->
+            <section id="tech-stack" class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">🛠 Tech Stack</h2>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li><strong>Runtime:</strong> Node.js</li>
+                    <li><strong>Framework:</strong> Express.js 5.x</li>
+                    <li><strong>Database:</strong> MongoDB with Mongoose</li>
+                    <li><strong>Authentication:</strong> JWT (jsonwebtoken, jose)</li>
+                    <li><strong>Security:</strong> bcryptjs for password hashing</li>
+                    <li><strong>Environment:</strong> dotenv</li>
+                    <li><strong>Middleware:</strong> cors, cookie-parser</li>
+                </ul>
+            </section>
+
+            <!-- Prerequisites -->
+            <section id="prerequisites" class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">📦 Prerequisites</h2>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>Node.js (v14 or higher)</li>
+                    <li>MongoDB (local or cloud instance like MongoDB Atlas)</li>
+                    <li>npm or yarn</li>
+                </ul>
+            </section>
+
+            <!-- Installation -->
+            <section id="installation" class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">🚀 Installation</h2>
+                <ol class="list-decimal list-inside space-y-4 text-gray-700">
+                    <li>
+                        <strong>Clone the repository</strong>
+                        <pre><code>git clone &lt;repository-url&gt;
+cd idea-drop</code></pre>
+                    </li>
+                    <li>
+                        <strong>Install dependencies</strong>
+                        <pre><code>npm install</code></pre>
+                    </li>
+                    <li>
+                        <strong>Set up environment variables</strong>
+                        <p class="mt-2 mb-2">Create a <code>.env</code> file in the root directory:</p>
+                        <pre><code>PORT=6000
+MONGO_URI=mongodb://localhost:27017/idea-drop
+JWT_SECRET=your-super-secret-jwt-key-here
+NODE_ENV=development</code></pre>
+                    </li>
+                    <li>
+                        <strong>Start the development server</strong>
+                        <pre><code>npm run dev</code></pre>
+                    </li>
+                    <li>
+                        <strong>Start the production server</strong>
+                        <pre><code>npm start</code></pre>
+                    </li>
+                </ol>
+                <p class="mt-4 text-gray-700">
+                    The server will run on <code>http://localhost:6000</code> (or the port specified in your <code>.env</code> file).
+                </p>
+            </section>
+
+            <!-- Configuration -->
+            <section id="configuration" class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">⚙️ Configuration</h2>
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Environment Variables</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Description</th>
+                            <th>Required</th>
+                            <th>Default</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>PORT</code></td>
+                            <td>Server port number</td>
+                            <td>No</td>
+                            <td>6000</td>
+                        </tr>
+                        <tr>
+                            <td><code>MONGO_URI</code></td>
+                            <td>MongoDB connection string</td>
+                            <td>Yes</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><code>JWT_SECRET</code></td>
+                            <td>Secret key for JWT token signing</td>
+                            <td>Yes</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><code>NODE_ENV</code></td>
+                            <td>Environment (development/production)</td>
+                            <td>No</td>
+                            <td>development</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- API Documentation -->
+            <section id="api-documentation" class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">📚 API Documentation</h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Base URL</h3>
+                    <pre><code>http://localhost:6000/api/v1</code></pre>
+                </div>
+
+                <!-- Authentication Endpoints -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Authentication Endpoints</h3>
+                    
+                    <!-- Register -->
+                    <div class="mb-6 border-l-4 border-green-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-post">POST</span>
+                            Register User
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>POST /auth/register</code></p>
+                        <pre><code>Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}</code></pre>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (201 Created)</p>
+                        <pre><code>{
+  "message": "User created successfully",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "data": {
+    "_id": "507f1f77bcf86cd799439011",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Login -->
+                    <div class="mb-6 border-l-4 border-green-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-post">POST</span>
+                            Login
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>POST /auth/login</code></p>
+                        <pre><code>Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}</code></pre>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "User logged in successfully",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "data": {
+    "_id": "507f1f77bcf86cd799439011",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Refresh Token -->
+                    <div class="mb-6 border-l-4 border-green-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-post">POST</span>
+                            Refresh Token
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>POST /auth/refresh</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Token refreshed successfully",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "data": {
+    "_id": "507f1f77bcf86cd799439011",
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Logout -->
+                    <div class="mb-6 border-l-4 border-green-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-post">POST</span>
+                            Logout
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>POST /auth/logout</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "User logged out successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Get All Users -->
+                    <div class="mb-6 border-l-4 border-blue-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-get">GET</span>
+                            Get All Users
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>GET /auth</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Users fetched successfully",
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439011",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "role": "user"
+    }
+  ]
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Idea Endpoints -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Idea Endpoints</h3>
+                    
+                    <!-- Get All Ideas -->
+                    <div class="mb-6 border-l-4 border-blue-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-get">GET</span>
+                            Get All Ideas
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>GET /ideas?_limit=10</code></p>
+                        <p class="text-gray-700 mb-2"><strong>Query Parameters:</strong></p>
+                        <ul class="list-disc list-inside text-gray-700 ml-4 mb-3">
+                            <li><code>_limit</code> (optional): Number of ideas to return (default: 10)</li>
+                        </ul>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Ideas fetched successfully",
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439012",
+      "title": "My Idea",
+      "summary": "Short summary",
+      "description": "Full description",
+      "tags": ["tag1", "tag2"],
+      "user": "507f1f77bcf86cd799439011",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}</code></pre>
+                    </div>
+
+                    <!-- Get Single Idea -->
+                    <div class="mb-6 border-l-4 border-blue-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-get">GET</span>
+                            Get Single Idea
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>GET /ideas/:id</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Idea fetched successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439012",
+    "title": "My Idea",
+    "summary": "Short summary",
+    "description": "Full description",
+    "tags": ["tag1", "tag2"],
+    "user": "507f1f77bcf86cd799439011",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Create Idea -->
+                    <div class="mb-6 border-l-4 border-green-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-post">POST</span>
+                            Create Idea (Protected)
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>POST /ideas</code></p>
+                        <p class="text-gray-700 mb-2"><code>Authorization: Bearer &lt;access_token&gt;</code></p>
+                        <pre><code>Content-Type: application/json
+
+{
+  "title": "My New Idea",
+  "summary": "Brief summary of the idea",
+  "description": "Detailed description of the idea",
+  "tags": "tag1, tag2, tag3"
+}</code></pre>
+                        <p class="text-gray-700 mt-2 mb-3 text-sm italic">Note: Tags can be provided as a comma-separated string or an array.</p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (201 Created)</p>
+                        <pre><code>{
+  "message": "Idea created successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439012",
+    "title": "My New Idea",
+    "summary": "Brief summary of the idea",
+    "description": "Detailed description of the idea",
+    "tags": ["tag1", "tag2", "tag3"],
+    "user": "507f1f77bcf86cd799439011",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Update Idea -->
+                    <div class="mb-6 border-l-4 border-yellow-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-put">PUT</span>
+                            Update Idea (Protected)
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>PUT /ideas/:id</code></p>
+                        <p class="text-gray-700 mb-2"><code>Authorization: Bearer &lt;access_token&gt;</code></p>
+                        <pre><code>Content-Type: application/json
+
+{
+  "title": "Updated Title",
+  "summary": "Updated summary",
+  "description": "Updated description",
+  "tags": ["new", "tags"]
+}</code></pre>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Idea updated successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439012",
+    "title": "Updated Title",
+    "summary": "Updated summary",
+    "description": "Updated description",
+    "tags": ["new", "tags"],
+    "user": "507f1f77bcf86cd799439011",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T01:00:00.000Z"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Delete Idea -->
+                    <div class="mb-6 border-l-4 border-red-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-delete">DELETE</span>
+                            Delete Idea (Protected)
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>DELETE /ideas/:id</code></p>
+                        <p class="text-gray-700 mb-2"><code>Authorization: Bearer &lt;access_token&gt;</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Idea deleted successfully",
+  "data": {}
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Error Responses -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Error Responses</h3>
+                    <p class="text-gray-700 mb-3">All error responses follow this format:</p>
+                    <pre><code>{
+  "message": "Error message here",
+  "stack": "Error stack trace (only in development)"
+}</code></pre>
+                    <p class="text-gray-700 mt-4 font-semibold">Common HTTP Status Codes:</p>
+                    <ul class="list-disc list-inside text-gray-700 ml-4">
+                        <li><code>400</code> - Bad Request (validation errors)</li>
+                        <li><code>401</code> - Unauthorized (authentication required)</li>
+                        <li><code>403</code> - Forbidden (authorization failed)</li>
+                        <li><code>404</code> - Not Found (resource doesn't exist)</li>
+                        <li><code>500</code> - Internal Server Error</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Project Structure -->
+            <section id="project-structure" class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">📁 Project Structure</h2>
+                <pre><code>idea-drop/
+├── config/
+│   └── db.js                 # MongoDB connection configuration
+├── middleware/
+│   ├── authMiddleware.js     # JWT authentication middleware
+│   └── errorHandler.js       # Global error handling middleware
+├── models/
+│   ├── Idea.js              # Idea schema and model
+│   └── User.js              # User schema and model
+├── routes/
+│   ├── authRouters.js       # Authentication routes
+│   └── ideaRoutes.js        # Idea CRUD routes
+├── utils/
+│   ├── generateToken.js     # JWT token generation utility
+│   └── getJWTSecret.js      # JWT secret key utility
+├── server.js                # Express app entry point
+├── package.json             # Dependencies and scripts
+└── .env                     # Environment variables (not in git)</code></pre>
+            </section>
+
+            <!-- Authentication -->
+            <section id="authentication" class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">🔐 Authentication</h2>
+                <p class="text-gray-700 mb-4">
+                    The API uses JWT (JSON Web Tokens) for authentication:
+                </p>
+                <ol class="list-decimal list-inside space-y-3 text-gray-700 mb-4">
+                    <li>
+                        <strong>Access Token:</strong> Short-lived token (1 hour) sent in the <code>Authorization</code> header
+                        <pre class="mt-2"><code>Authorization: Bearer &lt;access_token&gt;</code></pre>
+                    </li>
+                    <li>
+                        <strong>Refresh Token:</strong> Long-lived token (30 days) stored in HTTP-only cookies
+                    </li>
+                    <li>
+                        <strong>Token Refresh:</strong> Use the <code>/auth/refresh</code> endpoint to get a new access token using the refresh token cookie
+                    </li>
+                </ol>
+                <div class="mt-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Protected Routes</h3>
+                    <p class="text-gray-700 mb-2">Routes marked with <code>protect</code> middleware require authentication:</p>
+                    <ul class="list-disc list-inside text-gray-700 ml-4">
+                        <li><code>POST /ideas</code> - Create idea</li>
+                        <li><code>PUT /ideas/:id</code> - Update idea</li>
+                        <li><code>DELETE /ideas/:id</code> - Delete idea</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Error Handling -->
+            <section id="error-handling" class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">⚠️ Error Handling</h2>
+                <p class="text-gray-700 mb-4">The API uses centralized error handling:</p>
+                <ol class="list-decimal list-inside space-y-2 text-gray-700 mb-4">
+                    <li><strong>Error Handler Middleware:</strong> Located in <code>middleware/errorHandler.js</code></li>
+                    <li><strong>Error Response Format:</strong> Consistent JSON error responses</li>
+                    <li><strong>Status Codes:</strong> Proper HTTP status codes for different error types</li>
+                    <li><strong>Stack Traces:</strong> Only shown in development mode</li>
+                </ol>
+                <p class="text-gray-700 mb-2">Error handling pattern in routes:</p>
+                <pre><code>try {
+  // Route logic
+} catch (error) {
+  next(error); // Passes error to error handler middleware
+}</code></pre>
+            </section>
+
+            <!-- Usage Examples -->
+            <section id="usage-examples" class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">💡 Usage Examples</h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Using cURL</h3>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 font-semibold mb-2">Register a new user:</p>
+                        <pre><code>curl -X POST http://localhost:6000/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123"
+  }'</code></pre>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-gray-700 font-semibold mb-2">Login:</p>
+                        <pre><code>curl -X POST http://localhost:6000/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john@example.com",
+    "password": "password123"
+  }' \
+  -c cookies.txt</code></pre>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-gray-700 font-semibold mb-2">Create an idea (with token):</p>
+                        <pre><code>curl -X POST http://localhost:6000/api/v1/ideas \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -d '{
+    "title": "My Idea",
+    "summary": "Short summary",
+    "description": "Full description",
+    "tags": "tag1, tag2"
+  }'</code></pre>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-gray-700 font-semibold mb-2">Get all ideas:</p>
+                        <pre><code>curl -X GET "http://localhost:6000/api/v1/ideas?_limit=5"</code></pre>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Using JavaScript (Fetch API)</h3>
+                    <pre><code>// Login
+const loginResponse = await fetch('http://localhost:6000/api/v1/auth/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  credentials: 'include', // Important for cookies
+  body: JSON.stringify({
+    email: 'john@example.com',
+    password: 'password123'
+  })
+});
+
+const { accessToken } = await loginResponse.json();
+
+// Create idea
+const ideaResponse = await fetch('http://localhost:6000/api/v1/ideas', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${accessToken}`
+  },
+  body: JSON.stringify({
+    title: 'My Idea',
+    summary: 'Short summary',
+    description: 'Full description',
+    tags: ['tag1', 'tag2']
+  })
+});
+
+const ideaData = await ideaResponse.json();
+console.log(ideaData);</code></pre>
+                </div>
+            </section>
+
+            <!-- Notes & Security -->
+            <section class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">📝 Notes</h2>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>Passwords must be at least 3 characters long</li>
+                    <li>All fields (title, summary, description) are required when creating/updating ideas</li>
+                    <li>Tags can be provided as comma-separated strings or arrays</li>
+                    <li>Ideas are sorted by creation date (newest first) when fetching all ideas</li>
+                    <li>Only the idea owner can update or delete their ideas</li>
+                    <li>Refresh tokens are stored in HTTP-only cookies for security</li>
+                </ul>
+            </section>
+
+            <section class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">🔒 Security Considerations</h2>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>Passwords are hashed using bcrypt</li>
+                    <li>JWT tokens are signed with a secret key</li>
+                    <li>Refresh tokens are stored in HTTP-only cookies</li>
+                    <li>CORS is enabled for cross-origin requests</li>
+                    <li>Input validation on all endpoints</li>
+                    <li>Authorization checks for protected operations</li>
+                </ul>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8 mt-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <p class="text-gray-400">Idea Drop API Documentation</p>
+                <p class="text-gray-500 text-sm mt-2">Built with Node.js, Express, and MongoDB</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
