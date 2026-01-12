@@ -18,10 +18,14 @@ const app = express();
 
 const PORT = process.env.PORT || 6000;
 
+const options = {
+  origin: ["http://localhost:3000", "https://www.example.com"],
+};
+
 // Connect to MongoDB
 connectDB();
 
-app.use(cors());
+app.use(cors(options));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
