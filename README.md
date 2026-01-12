@@ -1,0 +1,540 @@
+# Idea Drop API
+
+A RESTful API backend for managing ideas with user authentication and authorization. Built with Node.js, Express, and MongoDB.
+
+## 📋 Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [API Documentation](#api-documentation)
+- [Project Structure](#project-structure)
+- [Authentication](#authentication)
+- [Error Handling](#error-handling)
+- [Usage Examples](#usage-examples)
+
+## ✨ Features
+
+- **User Authentication**
+  - User registration with email and password
+  - User login with JWT tokens
+  - Token refresh mechanism
+  - Protected routes with authentication middleware
+  - Cookie-based refresh token storage
+
+- **Idea Management**
+  - Create, read, update, and delete ideas
+  - Paginated idea listing
+  - User-specific idea ownership
+  - Authorization checks for updates and deletions
+  - Tag support for ideas
+
+- **Security**
+  - Password hashing with bcrypt
+  - JWT-based authentication
+  - HTTP-only cookies for refresh tokens
+  - CORS enabled
+  - Input validation
+
+## 🛠 Tech Stack
+
+- **Runtime**: Node.js
+- **Framework**: Express.js 5.x
+- **Database**: MongoDB with Mongoose
+- **Authentication**: JWT (jsonwebtoken, jose)
+- **Security**: bcryptjs for password hashing
+- **Environment**: dotenv
+- **Middleware**: cors, cookie-parser
+
+## 📦 Prerequisites
+
+- Node.js (v14 or higher)
+- MongoDB (local or cloud instance like MongoDB Atlas)
+- npm or yarn
+
+## 🚀 Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd idea-drop
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env` file in the root directory:
+   ```env
+   PORT=6000
+   MONGO_URI=mongodb://localhost:27017/idea-drop
+   JWT_SECRET=your-super-secret-jwt-key-here
+   NODE_ENV=development
+   ```
+
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Start the production server**
+   ```bash
+   npm start
+   ```
+
+The server will run on `http://localhost:6000` (or the port specified in your `.env` file).
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+| Variable | Description | Required | Default |
+|----------|-------------|----------|---------|
+| `PORT` | Server port number | No | 6000 |
+| `MONGO_URI` | MongoDB connection string | Yes | - |
+| `JWT_SECRET` | Secret key for JWT token signing | Yes | - |
+| `NODE_ENV` | Environment (development/production) | No | development |
+
+## 📚 API Documentation
+
+### Base URL
+```
+http://localhost:6000/api/v1
+```
+
+### Authentication Endpoints
+
+#### Register User
+```http
+POST /auth/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+**Response (201 Created)**
+```json
+{
+  "message": "User created successfully",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "data": {
+    "_id": "507f1f77bcf86cd799439011",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+#### Login
+```http
+POST /auth/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "User logged in successfully",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "data": {
+    "_id": "507f1f77bcf86cd799439011",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user"
+  }
+}
+```
+
+#### Refresh Token
+```http
+POST /auth/refresh
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Token refreshed successfully",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "data": {
+    "_id": "507f1f77bcf86cd799439011",
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+}
+```
+
+#### Logout
+```http
+POST /auth/logout
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "User logged out successfully"
+}
+```
+
+#### Get All Users
+```http
+GET /auth
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Users fetched successfully",
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439011",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "role": "user"
+    }
+  ]
+}
+```
+
+### Idea Endpoints
+
+#### Get All Ideas
+```http
+GET /ideas?_limit=10
+```
+
+**Query Parameters**
+- `_limit` (optional): Number of ideas to return (default: 10)
+
+**Response (200 OK)**
+```json
+{
+  "message": "Ideas fetched successfully",
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439012",
+      "title": "My Idea",
+      "summary": "Short summary",
+      "description": "Full description",
+      "tags": ["tag1", "tag2"],
+      "user": "507f1f77bcf86cd799439011",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
+```
+
+#### Get Single Idea
+```http
+GET /ideas/:id
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Idea fetched successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439012",
+    "title": "My Idea",
+    "summary": "Short summary",
+    "description": "Full description",
+    "tags": ["tag1", "tag2"],
+    "user": "507f1f77bcf86cd799439011",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+#### Create Idea (Protected)
+```http
+POST /ideas
+Authorization: Bearer <access_token>
+Content-Type: application/json
+
+{
+  "title": "My New Idea",
+  "summary": "Brief summary of the idea",
+  "description": "Detailed description of the idea",
+  "tags": "tag1, tag2, tag3"
+}
+```
+
+**Note**: Tags can be provided as a comma-separated string or an array.
+
+**Response (201 Created)**
+```json
+{
+  "message": "Idea created successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439012",
+    "title": "My New Idea",
+    "summary": "Brief summary of the idea",
+    "description": "Detailed description of the idea",
+    "tags": ["tag1", "tag2", "tag3"],
+    "user": "507f1f77bcf86cd799439011",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+#### Update Idea (Protected)
+```http
+PUT /ideas/:id
+Authorization: Bearer <access_token>
+Content-Type: application/json
+
+{
+  "title": "Updated Title",
+  "summary": "Updated summary",
+  "description": "Updated description",
+  "tags": ["new", "tags"]
+}
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Idea updated successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439012",
+    "title": "Updated Title",
+    "summary": "Updated summary",
+    "description": "Updated description",
+    "tags": ["new", "tags"],
+    "user": "507f1f77bcf86cd799439011",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T01:00:00.000Z"
+  }
+}
+```
+
+#### Delete Idea (Protected)
+```http
+DELETE /ideas/:id
+Authorization: Bearer <access_token>
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Idea deleted successfully",
+  "data": {}
+}
+```
+
+### Error Responses
+
+All error responses follow this format:
+
+```json
+{
+  "message": "Error message here",
+  "stack": "Error stack trace (only in development)"
+}
+```
+
+**Common HTTP Status Codes:**
+- `400` - Bad Request (validation errors)
+- `401` - Unauthorized (authentication required)
+- `403` - Forbidden (authorization failed)
+- `404` - Not Found (resource doesn't exist)
+- `500` - Internal Server Error
+
+## 📁 Project Structure
+
+```
+idea-drop/
+├── config/
+│   └── db.js                 # MongoDB connection configuration
+├── middleware/
+│   ├── authMiddleware.js     # JWT authentication middleware
+│   └── errorHandler.js       # Global error handling middleware
+├── models/
+│   ├── Idea.js              # Idea schema and model
+│   └── User.js              # User schema and model
+├── routes/
+│   ├── authRouters.js       # Authentication routes
+│   └── ideaRoutes.js        # Idea CRUD routes
+├── utils/
+│   ├── generateToken.js     # JWT token generation utility
+│   └── getJWTSecret.js      # JWT secret key utility
+├── server.js                # Express app entry point
+├── package.json             # Dependencies and scripts
+└── .env                     # Environment variables (not in git)
+```
+
+## 🔐 Authentication
+
+The API uses JWT (JSON Web Tokens) for authentication:
+
+1. **Access Token**: Short-lived token (1 hour) sent in the `Authorization` header
+   ```
+   Authorization: Bearer <access_token>
+   ```
+
+2. **Refresh Token**: Long-lived token (30 days) stored in HTTP-only cookies
+
+3. **Token Refresh**: Use the `/auth/refresh` endpoint to get a new access token using the refresh token cookie
+
+### Protected Routes
+
+Routes marked with `protect` middleware require authentication:
+- `POST /ideas` - Create idea
+- `PUT /ideas/:id` - Update idea
+- `DELETE /ideas/:id` - Delete idea
+
+## ⚠️ Error Handling
+
+The API uses centralized error handling:
+
+1. **Error Handler Middleware**: Located in `middleware/errorHandler.js`
+2. **Error Response Format**: Consistent JSON error responses
+3. **Status Codes**: Proper HTTP status codes for different error types
+4. **Stack Traces**: Only shown in development mode
+
+Error handling pattern in routes:
+```javascript
+try {
+  // Route logic
+} catch (error) {
+  next(error); // Passes error to error handler middleware
+}
+```
+
+## 💡 Usage Examples
+
+### Using cURL
+
+**Register a new user:**
+```bash
+curl -X POST http://localhost:6000/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123"
+  }'
+```
+
+**Login:**
+```bash
+curl -X POST http://localhost:6000/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john@example.com",
+    "password": "password123"
+  }' \
+  -c cookies.txt
+```
+
+**Create an idea (with token):**
+```bash
+curl -X POST http://localhost:6000/api/v1/ideas \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -d '{
+    "title": "My Idea",
+    "summary": "Short summary",
+    "description": "Full description",
+    "tags": "tag1, tag2"
+  }'
+```
+
+**Get all ideas:**
+```bash
+curl -X GET "http://localhost:6000/api/v1/ideas?_limit=5"
+```
+
+### Using JavaScript (Fetch API)
+
+```javascript
+// Login
+const loginResponse = await fetch('http://localhost:6000/api/v1/auth/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  credentials: 'include', // Important for cookies
+  body: JSON.stringify({
+    email: 'john@example.com',
+    password: 'password123'
+  })
+});
+
+const { accessToken } = await loginResponse.json();
+
+// Create idea
+const ideaResponse = await fetch('http://localhost:6000/api/v1/ideas', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${accessToken}`
+  },
+  body: JSON.stringify({
+    title: 'My Idea',
+    summary: 'Short summary',
+    description: 'Full description',
+    tags: ['tag1', 'tag2']
+  })
+});
+
+const ideaData = await ideaResponse.json();
+console.log(ideaData);
+```
+
+## 🧪 Testing
+
+Currently, no test suite is configured. To add tests:
+
+1. Install a testing framework (Jest, Mocha, etc.)
+2. Set up test database
+3. Write tests for routes and middleware
+4. Add test script to `package.json`
+
+## 📝 Notes
+
+- Passwords must be at least 3 characters long
+- All fields (title, summary, description) are required when creating/updating ideas
+- Tags can be provided as comma-separated strings or arrays
+- Ideas are sorted by creation date (newest first) when fetching all ideas
+- Only the idea owner can update or delete their ideas
+- Refresh tokens are stored in HTTP-only cookies for security
+
+## 🔒 Security Considerations
+
+- Passwords are hashed using bcrypt
+- JWT tokens are signed with a secret key
+- Refresh tokens are stored in HTTP-only cookies
+- CORS is enabled for cross-origin requests
+- Input validation on all endpoints
+- Authorization checks for protected operations
+
+## 📄 License
+
+ISC
+
+## 👤 Author
+
+Your Name
+
+---
+
+For more information or issues, please contact the development team.
