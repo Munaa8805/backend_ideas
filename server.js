@@ -19,7 +19,10 @@ const app = express();
 const PORT = process.env.PORT || 6000;
 
 const options = {
-  origin: ["http://localhost:3000", "https://www.example.com"],
+  origin: [
+    "http://localhost:3000",
+    "https://shopping-frontend-seven.vercel.app/",
+  ],
 };
 
 // Connect to MongoDB
