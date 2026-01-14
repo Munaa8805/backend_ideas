@@ -73,6 +73,7 @@ router.post("/logout", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body || {};
+    // console.log(email, password);
     if (!email.trim() || !password.trim()) {
       res.status(400);
       throw new Error("All fields are required");
@@ -81,16 +82,23 @@ router.post("/login", async (req, res, next) => {
       res.status(400);
       throw new Error("Invalid credentials");
     }
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("+password");
     if (!user) {
       res.status(400);
       throw new Error("Invalid credentials");
     }
-    const isPasswordCorrect = await user.comparePassword(password);
+    // console.log("user", user);
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
       res.status(400);
       throw new Error("Invalid credentials");
     }
+    // const isPasswordCorrect = await user.comparePassword(password);
+    // if (!isPasswordCorrect) {
+    //   res.status(400);
+    //   throw new Error("Invalid credentials");
+    // }
 
     const payload = { userId: user._id.toString() };
     const accessToken = await generateToken(payload, "1h");
