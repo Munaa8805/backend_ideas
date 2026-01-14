@@ -12,8 +12,26 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
-    password: { type: String, required: true, trim: true, minlength: 3 },
-    role: { type: String, enum: ["admin", "user"], default: "user" },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 3,
+      select: false,
+    },
+    role: {
+      type: String,
+      enum: ["admin", "user"],
+      default: "user",
+      select: false,
+    },
+    profileImage: {
+      type: String,
+      required: false,
+      trim: true,
+      default:
+        "https://res.cloudinary.com/drneyxkqq/image/upload/v1768087485/samples/balloons.jpg",
+    },
   },
   { timestamps: true }
 );

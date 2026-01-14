@@ -2,11 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import colors from "colors";
 import path from "path";
 import { fileURLToPath } from "url";
 import connectDB from "./config/db.js";
 import ideaRoutes from "./routes/ideaRoutes.js";
 import authRouters from "./routes/authRouters.js";
+import productRoutes from "./routes/productRouters.js";
+import bookRoutes from "./routes/bookRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 dotenv.config();
@@ -24,7 +27,7 @@ const options = {
     "https://shopping-frontend-seven.vercel.app/",
   ],
 };
-
+colors.enable();
 // Connect to MongoDB
 connectDB();
 
@@ -33,12 +36,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cookieParser());
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 app.use("/api/v1/auth", authRouters);
 app.use("/api/v1/ideas", ideaRoutes);
-
+app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/books", bookRoutes);
 app.use((req, res, next) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
   res.status(404);
@@ -49,5 +54,5 @@ app.use((req, res, next) => {
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`.yellow);
 });

@@ -1,0 +1,398 @@
+[
+    {
+        "name": "Wireless Headphones",
+        "price": 79.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/11/29/09/32/headphones-1868612_1280.jpg",
+            "https://cdn.pixabay.com/photo/2017/08/06/05/44/smartwatch-2588423_1280.jpg"
+        ],
+        "category": [
+            "Electronics",
+            "Audio"
+        ],
+        "subCategory": "Headphones",
+        "brand": "SoundMax",
+        "color": "Black",
+        "size": "",
+        "quantity": 30,
+        "description": "Wireless headphones with clear sound and long battery life."
+    },
+    {
+        "name": "Noise Cancelling Headphones",
+        "price": 99.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/11/29/09/32/headphones-1868612_1280.jpg"
+        ],
+        "category": [
+            "Electronics",
+            "Audio"
+        ],
+        "subCategory": "Headphones",
+        "brand": "AudioPro",
+        "color": "Gray",
+        "size": "",
+        "quantity": 25,
+        "description": "Over-ear headphones with noise reduction."
+    },
+    {
+        "name": "Bluetooth Headphones",
+        "price": 59.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/11/29/09/32/headphones-1868612_1280.jpg"
+        ],
+        "category": [
+            "Electronics",
+            "Audio"
+        ],
+        "subCategory": "Headphones",
+        "brand": "BeatSound",
+        "color": "Blue",
+        "size": "",
+        "quantity": 40,
+        "description": "Lightweight Bluetooth headphones for everyday use."
+    },
+    {
+        "name": "Studio Headphones",
+        "price": 129.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/11/29/09/32/headphones-1868612_1280.jpg"
+        ],
+        "category": [
+            "Electronics",
+            "Audio"
+        ],
+        "subCategory": "Headphones",
+        "brand": "ProAudio",
+        "color": "Black",
+        "size": "",
+        "quantity": 15,
+        "description": "Professional studio headphones with balanced sound."
+    },
+    {
+        "name": "Smart Watch Active",
+        "price": 149.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2017/08/06/05/44/smartwatch-2588423_1280.jpg"
+        ],
+        "category": [
+            "Electronics",
+            "Wearables"
+        ],
+        "subCategory": "Smartwatch",
+        "brand": "TimeTech",
+        "color": "Black",
+        "size": "M",
+        "quantity": 20,
+        "description": "Smartwatch with fitness and heart rate tracking."
+    },
+    {
+        "name": "Smart Watch Pro",
+        "price": 199.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2017/08/06/05/44/smartwatch-2588423_1280.jpg"
+        ],
+        "category": [
+            "Electronics",
+            "Wearables"
+        ],
+        "subCategory": "Smartwatch",
+        "brand": "TimeTech",
+        "color": "Silver",
+        "size": "L",
+        "quantity": 15,
+        "description": "Advanced smartwatch with GPS and notifications."
+    },
+    {
+        "name": "Fitness Watch",
+        "price": 89.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2017/08/06/05/44/smartwatch-2588423_1280.jpg"
+        ],
+        "category": [
+            "Electronics",
+            "Wearables"
+        ],
+        "subCategory": "Smartwatch",
+        "brand": "FitGo",
+        "color": "Black",
+        "size": "S",
+        "quantity": 35,
+        "description": "Fitness watch with step and calorie tracking."
+    },
+    {
+        "name": "Classic Smart Watch",
+        "price": 129.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2017/08/06/05/44/smartwatch-2588423_1280.jpg"
+        ],
+        "category": [
+            "Electronics",
+            "Wearables"
+        ],
+        "subCategory": "Smartwatch",
+        "brand": "UrbanTime",
+        "color": "Brown",
+        "size": "M",
+        "quantity": 22,
+        "description": "Smartwatch with classic design and smart features."
+    },
+    {
+        "name": "Running Shoes",
+        "price": 89.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/03/27/07/08/shoes-1283688_1280.jpg"
+        ],
+        "category": [
+            "Fashion",
+            "Sports"
+        ],
+        "subCategory": "Shoes",
+        "brand": "RunFast",
+        "color": "White",
+        "size": "42",
+        "quantity": 22,
+        "description": "Lightweight shoes for daily running."
+    },
+    {
+        "name": "Casual Sneakers",
+        "price": 69.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/03/27/07/08/shoes-1283688_1280.jpg"
+        ],
+        "category": [
+            "Fashion"
+        ],
+        "subCategory": "Shoes",
+        "brand": "StreetWear",
+        "color": "Black",
+        "size": "41",
+        "quantity": 18,
+        "description": "Comfortable sneakers for everyday use."
+    },
+    {
+        "name": "Training Shoes",
+        "price": 94.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/03/27/07/08/shoes-1283688_1280.jpg"
+        ],
+        "category": [
+            "Fashion",
+            "Sports"
+        ],
+        "subCategory": "Shoes",
+        "brand": "FlexFit",
+        "color": "Gray",
+        "size": "43",
+        "quantity": 20,
+        "description": "Training shoes for gym and workouts."
+    },
+    {
+        "name": "Walking Shoes",
+        "price": 64.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/03/27/07/08/shoes-1283688_1280.jpg"
+        ],
+        "category": [
+            "Fashion"
+        ],
+        "subCategory": "Shoes",
+        "brand": "WalkEasy",
+        "color": "Blue",
+        "size": "42",
+        "quantity": 28,
+        "description": "Comfort shoes for long walks."
+    },
+    {
+        "name": "Laptop Backpack",
+        "price": 59.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/11/29/05/08/backpack-1866589_1280.jpg"
+        ],
+        "category": [
+            "Accessories"
+        ],
+        "subCategory": "Bags",
+        "brand": "UrbanCarry",
+        "color": "Gray",
+        "size": "Large",
+        "quantity": 40,
+        "description": "Backpack with padded laptop compartment."
+    },
+    {
+        "name": "Travel Backpack",
+        "price": 74.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/11/29/05/08/backpack-1866589_1280.jpg"
+        ],
+        "category": [
+            "Accessories"
+        ],
+        "subCategory": "Bags",
+        "brand": "GoTravel",
+        "color": "Black",
+        "size": "Large",
+        "quantity": 35,
+        "description": "Durable backpack for travel."
+    },
+    {
+        "name": "School Backpack",
+        "price": 49.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/11/29/05/08/backpack-1866589_1280.jpg"
+        ],
+        "category": [
+            "Accessories"
+        ],
+        "subCategory": "Bags",
+        "brand": "EduPack",
+        "color": "Blue",
+        "size": "Medium",
+        "quantity": 50,
+        "description": "Backpack for school and daily use."
+    },
+    {
+        "name": "Office Backpack",
+        "price": 69.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/11/29/05/08/backpack-1866589_1280.jpg"
+        ],
+        "category": [
+            "Accessories"
+        ],
+        "subCategory": "Bags",
+        "brand": "WorkPro",
+        "color": "Black",
+        "size": "Large",
+        "quantity": 30,
+        "description": "Professional backpack for office use."
+    },
+    {
+        "name": "Basic T-Shirt",
+        "price": 19.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/03/27/22/16/t-shirt-1285338_1280.jpg"
+        ],
+        "category": [
+            "Fashion"
+        ],
+        "subCategory": "Clothing",
+        "brand": "CottonWear",
+        "color": "White",
+        "size": "M",
+        "quantity": 60,
+        "description": "Soft cotton t-shirt."
+    },
+    {
+        "name": "Graphic T-Shirt",
+        "price": 24.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/03/27/22/16/t-shirt-1285338_1280.jpg"
+        ],
+        "category": [
+            "Fashion"
+        ],
+        "subCategory": "Clothing",
+        "brand": "UrbanStyle",
+        "color": "Black",
+        "size": "L",
+        "quantity": 50,
+        "description": "Stylish graphic t-shirt."
+    },
+    {
+        "name": "Slim Fit T-Shirt",
+        "price": 22.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/03/27/22/16/t-shirt-1285338_1280.jpg"
+        ],
+        "category": [
+            "Fashion"
+        ],
+        "subCategory": "Clothing",
+        "brand": "FitWear",
+        "color": "Gray",
+        "size": "M",
+        "quantity": 45,
+        "description": "Slim fit t-shirt with modern cut."
+    },
+    {
+        "name": "Sport T-Shirt",
+        "price": 26.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2016/03/27/22/16/t-shirt-1285338_1280.jpg"
+        ],
+        "category": [
+            "Fashion",
+            "Sports"
+        ],
+        "subCategory": "Clothing",
+        "brand": "ActiveWear",
+        "color": "Blue",
+        "size": "L",
+        "quantity": 35,
+        "description": "Breathable t-shirt for sports."
+    },
+    {
+        "name": "Laptop Pro 14",
+        "price": 1199.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2015/01/21/14/14/macbook-606763_1280.jpg"
+        ],
+        "category": [
+            "Electronics"
+        ],
+        "subCategory": "Computers",
+        "brand": "TechCore",
+        "color": "Silver",
+        "size": "14-inch",
+        "quantity": 10,
+        "description": "Powerful laptop for work."
+    },
+    {
+        "name": "Laptop Air 13",
+        "price": 999.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2015/01/21/14/14/macbook-606763_1280.jpg"
+        ],
+        "category": [
+            "Electronics"
+        ],
+        "subCategory": "Computers",
+        "brand": "TechCore",
+        "color": "Gray",
+        "size": "13-inch",
+        "quantity": 12,
+        "description": "Lightweight laptop for daily use."
+    },
+    {
+        "name": "Business Laptop",
+        "price": 1099.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2015/01/21/14/14/macbook-606763_1280.jpg"
+        ],
+        "category": [
+            "Electronics"
+        ],
+        "subCategory": "Computers",
+        "brand": "OfficeTech",
+        "color": "Black",
+        "size": "15-inch",
+        "quantity": 8,
+        "description": "Reliable laptop for business."
+    },
+    {
+        "name": "Developer Laptop",
+        "price": 1399.99,
+        "image": [
+            "https://cdn.pixabay.com/photo/2015/01/21/14/14/macbook-606763_1280.jpg"
+        ],
+        "category": [
+            "Electronics"
+        ],
+        "subCategory": "Computers",
+        "brand": "CodePro",
+        "color": "Silver",
+        "size": "16-inch",
+        "quantity": 6,
+        "description": "High-performance laptop for developers."
+    }
+]

@@ -2,17 +2,19 @@
   "name": "idea-drop",
   "version": "1.0.0",
   "main": "server.js",
-  "description": "",
+  "description": "A RESTful API backend for managing , products and other with user authentication and authorization.",
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Munaa Tsetsegmaa",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.8.0",
+    "colors": "^1.4.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
