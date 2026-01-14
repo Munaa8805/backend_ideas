@@ -36,6 +36,11 @@ const bookSchema = new mongoose.Schema(
     //   ref: "User",
     //   required: true,
     // },
+    publishedAt: {
+      type: Date,
+      required: false,
+      default: Date.now,
+    },
   },
   { timestamps: true }
 );

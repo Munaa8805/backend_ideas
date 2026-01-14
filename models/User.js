@@ -4,26 +4,36 @@ import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, trim: true },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 3,
+      maxlength: 50,
+    },
     email: {
       type: String,
       required: true,
       trim: true,
       unique: true,
       lowercase: true,
+      match: [
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        "Please enter a valid email address",
+      ],
     },
     password: {
       type: String,
       required: true,
       trim: true,
       minlength: 3,
+      maxlength: 8,
       select: false,
     },
     role: {
       type: String,
       enum: ["admin", "user"],
       default: "user",
-      select: false,
     },
     profileImage: {
       type: String,

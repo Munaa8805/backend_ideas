@@ -94,11 +94,6 @@ router.post("/login", async (req, res, next) => {
       res.status(400);
       throw new Error("Invalid credentials");
     }
-    // const isPasswordCorrect = await user.comparePassword(password);
-    // if (!isPasswordCorrect) {
-    //   res.status(400);
-    //   throw new Error("Invalid credentials");
-    // }
 
     const payload = { userId: user._id.toString() };
     const accessToken = await generateToken(payload, "1h");
@@ -112,7 +107,15 @@ router.post("/login", async (req, res, next) => {
     res.status(200).json({
       message: "User logged in successfully",
       accessToken,
-      data: user,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        profileImage: user.profileImage,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
     });
   } catch (error) {
     next(error);
