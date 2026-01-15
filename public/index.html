@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Idea Drop API Documentation</title>
+    <title>API Documentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         code {
@@ -13,6 +14,7 @@
             font-family: 'Courier New', monospace;
             font-size: 0.875rem;
         }
+
         pre {
             background-color: #1f2937;
             color: #f9fafb;
@@ -21,11 +23,13 @@
             overflow-x: auto;
             margin: 1rem 0;
         }
+
         pre code {
             background-color: transparent;
             padding: 0;
             color: inherit;
         }
+
         .endpoint-badge {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -34,39 +38,64 @@
             font-weight: 600;
             margin-right: 0.5rem;
         }
-        .badge-get { background-color: #3b82f6; color: white; }
-        .badge-post { background-color: #10b981; color: white; }
-        .badge-put { background-color: #f59e0b; color: white; }
-        .badge-delete { background-color: #ef4444; color: white; }
+
+        .badge-get {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .badge-post {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .badge-put {
+            background-color: #f59e0b;
+            color: white;
+        }
+
+        .badge-delete {
+            background-color: #ef4444;
+            color: white;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 1rem 0;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #e5e7eb;
             padding: 0.75rem;
             text-align: left;
         }
+
         th {
             background-color: #f9fafb;
             font-weight: 600;
         }
+
         tr:nth-child(even) {
             background-color: #f9fafb;
         }
+
         a {
             color: #3b82f6;
             text-decoration: underline;
         }
+
         a:hover {
             color: #2563eb;
         }
+
         .scroll-smooth {
             scroll-behavior: smooth;
         }
     </style>
 </head>
+
 <body class="bg-gray-50 scroll-smooth">
     <div class="min-h-screen">
         <!-- Header -->
@@ -82,9 +111,10 @@
             <!-- Introduction -->
             <section class="bg-white rounded-lg shadow p-6 mb-8">
                 <p class="text-lg text-gray-700 mb-4">
-                    A RESTful API backend for managing ideas with user authentication and authorization. Built with Node.js, Express, and MongoDB.
+                    A RESTful API backend for managing ideas with user authentication and authorization. Built with
+                    Node.js, Express, and MongoDB.
                 </p>
-                
+
                 <!-- Table of Contents -->
                 <div class="mt-6">
                     <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 Table of Contents</h2>
@@ -99,6 +129,8 @@
                         <li><a href="#authentication">Authentication</a></li>
                         <li><a href="#error-handling">Error Handling</a></li>
                         <li><a href="#usage-examples">Usage Examples</a></li>
+                        <li><a href="#notes">Notes</a></li>
+                        <li><a href="#security">Security Considerations</a></li>
                     </ul>
                 </div>
             </section>
@@ -106,7 +138,7 @@
             <!-- Features -->
             <section id="features" class="bg-white rounded-lg shadow p-6 mb-8">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">✨ Features</h2>
-                
+
                 <div class="space-y-4">
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">User Authentication</h3>
@@ -118,7 +150,7 @@
                             <li>Cookie-based refresh token storage</li>
                         </ul>
                     </div>
-                    
+
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Idea Management</h3>
                         <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
@@ -129,7 +161,28 @@
                             <li>Tag support for ideas</li>
                         </ul>
                     </div>
-                    
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Product Management</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                            <li>Create, read, update, and delete products</li>
+                            <li>Product listing with full details</li>
+                            <li>Support for categories, brands, colors, sizes</li>
+                            <li>Image array support</li>
+                            <li>Quantity tracking</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Book Management</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                            <li>Create and read books</li>
+                            <li>Book listing with ratings</li>
+                            <li>Author and caption support</li>
+                            <li>Image support with default fallback</li>
+                        </ul>
+                    </div>
+
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Security</h3>
                         <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
@@ -138,6 +191,14 @@
                             <li>HTTP-only cookies for refresh tokens</li>
                             <li>CORS enabled</li>
                             <li>Input validation</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Server Maintenance</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                            <li>Automated cron job to keep server alive</li>
+                            <li>Periodic health checks every 14 minutes</li>
                         </ul>
                     </div>
                 </div>
@@ -154,6 +215,7 @@
                     <li><strong>Security:</strong> bcryptjs for password hashing</li>
                     <li><strong>Environment:</strong> dotenv</li>
                     <li><strong>Middleware:</strong> cors, cookie-parser</li>
+                    <li><strong>Scheduling:</strong> cron for automated tasks</li>
                 </ul>
             </section>
 
@@ -198,7 +260,8 @@ NODE_ENV=development</code></pre>
                     </li>
                 </ol>
                 <p class="mt-4 text-gray-700">
-                    The server will run on <code>http://localhost:6000</code> (or the port specified in your <code>.env</code> file).
+                    The server will run on <code>http://localhost:6000</code> (or the port specified in your
+                    <code>.env</code> file).
                 </p>
             </section>
 
@@ -247,7 +310,7 @@ NODE_ENV=development</code></pre>
             <!-- API Documentation -->
             <section id="api-documentation" class="bg-white rounded-lg shadow p-6 mb-8">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">📚 API Documentation</h2>
-                
+
                 <div class="mb-6">
                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Base URL</h3>
                     <pre><code>http://localhost:6000/api/v1</code></pre>
@@ -256,7 +319,7 @@ NODE_ENV=development</code></pre>
                 <!-- Authentication Endpoints -->
                 <div class="mb-8">
                     <h3 class="text-xl font-semibold text-gray-800 mb-4">Authentication Endpoints</h3>
-                    
+
                     <!-- Register -->
                     <div class="mb-6 border-l-4 border-green-500 pl-4">
                         <h4 class="text-lg font-semibold text-gray-800 mb-2">
@@ -369,7 +432,7 @@ NODE_ENV=development</code></pre>
                 <!-- Idea Endpoints -->
                 <div class="mb-8">
                     <h3 class="text-xl font-semibold text-gray-800 mb-4">Idea Endpoints</h3>
-                    
+
                     <!-- Get All Ideas -->
                     <div class="mb-6 border-l-4 border-blue-500 pl-4">
                         <h4 class="text-lg font-semibold text-gray-800 mb-2">
@@ -438,7 +501,8 @@ NODE_ENV=development</code></pre>
   "description": "Detailed description of the idea",
   "tags": "tag1, tag2, tag3"
 }</code></pre>
-                        <p class="text-gray-700 mt-2 mb-3 text-sm italic">Note: Tags can be provided as a comma-separated string or an array.</p>
+                        <p class="text-gray-700 mt-2 mb-3 text-sm italic">Note: Tags can be provided as a
+                            comma-separated string or an array.</p>
                         <p class="text-gray-700 mt-3 font-semibold">Response (201 Created)</p>
                         <pre><code>{
   "message": "Idea created successfully",
@@ -503,6 +567,216 @@ NODE_ENV=development</code></pre>
                     </div>
                 </div>
 
+                <!-- Product Endpoints -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Product Endpoints</h3>
+
+                    <!-- Get All Products -->
+                    <div class="mb-6 border-l-4 border-blue-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-get">GET</span>
+                            Get All Products
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>GET /products</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Products fetched successfully",
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439013",
+      "name": "Product Name",
+      "price": 99.99,
+      "image": ["https://example.com/image1.jpg"],
+      "category": ["Electronics"],
+      "brand": "Brand Name",
+      "quantity": 50,
+      "description": "Product description",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}</code></pre>
+                    </div>
+
+                    <!-- Get Single Product -->
+                    <div class="mb-6 border-l-4 border-blue-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-get">GET</span>
+                            Get Single Product
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>GET /products/:id</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Product fetched successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "Product Name",
+    "price": 99.99,
+    "image": ["https://example.com/image1.jpg"],
+    "category": ["Electronics"],
+    "brand": "Brand Name",
+    "quantity": 50,
+    "description": "Product description",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Create Product -->
+                    <div class="mb-6 border-l-4 border-green-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-post">POST</span>
+                            Create Product
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>POST /products</code></p>
+                        <p class="text-gray-700 mb-2"><strong>Required Fields:</strong> <code>name</code>,
+                            <code>price</code>, <code>category</code>, <code>brand</code>, <code>description</code>
+                        </p>
+                        <pre><code>Content-Type: application/json
+
+{
+  "name": "Product Name",
+  "price": 99.99,
+  "image": ["https://example.com/image1.jpg"],
+  "category": ["Electronics"],
+  "subCategory": "Smartphones",
+  "brand": "Brand Name",
+  "color": "Black",
+  "size": "Large",
+  "quantity": 50,
+  "description": "Product description"
+}</code></pre>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (201 Created)</p>
+                        <pre><code>{
+  "message": "Product created successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "Product Name",
+    "price": 99.99,
+    "image": ["https://example.com/image1.jpg"],
+    "category": ["Electronics"],
+    "brand": "Brand Name",
+    "quantity": 50,
+    "description": "Product description",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Update Product -->
+                    <div class="mb-6 border-l-4 border-yellow-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-put">PUT</span>
+                            Update Product
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>PUT /products/:id</code></p>
+                        <pre><code>Content-Type: application/json
+
+{
+  "name": "Updated Product Name",
+  "price": 89.99,
+  "quantity": 45
+}</code></pre>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Product updated successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "Updated Product Name",
+    "price": 89.99,
+    "quantity": 45,
+    "updatedAt": "2024-01-01T01:00:00.000Z"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Delete Product -->
+                    <div class="mb-6 border-l-4 border-red-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-delete">DELETE</span>
+                            Delete Product
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>DELETE /products/:id</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Product deleted successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "Product Name"
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Book Endpoints -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Book Endpoints</h3>
+
+                    <!-- Get All Books -->
+                    <div class="mb-6 border-l-4 border-blue-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-get">GET</span>
+                            Get All Books
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>GET /books</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Books fetched successfully",
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439014",
+      "name": "Book Title",
+      "caption": "Book caption",
+      "author": "Author Name",
+      "rating": 4.5,
+      "image": "https://example.com/book-cover.jpg",
+      "publishedAt": "2024-01-01T00:00:00.000Z",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}</code></pre>
+                    </div>
+
+                    <!-- Create Book -->
+                    <div class="mb-6 border-l-4 border-green-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-post">POST</span>
+                            Create Book
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>POST /books</code></p>
+                        <p class="text-gray-700 mb-2"><strong>Required Fields:</strong> <code>name</code>,
+                            <code>caption</code>, <code>author</code>, <code>rating</code> (1-5)
+                        </p>
+                        <pre><code>Content-Type: application/json
+
+{
+  "name": "Book Title",
+  "caption": "Book caption",
+  "author": "Author Name",
+  "rating": 4.5,
+  "image": "https://example.com/book-cover.jpg"
+}</code></pre>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Books fetched successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439014",
+    "name": "Book Title",
+    "caption": "Book caption",
+    "author": "Author Name",
+    "rating": 4.5,
+    "image": "https://example.com/book-cover.jpg",
+    "publishedAt": "2024-01-01T00:00:00.000Z",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}</code></pre>
+                    </div>
+                </div>
+
                 <!-- Error Responses -->
                 <div class="mb-6">
                     <h3 class="text-xl font-semibold text-gray-800 mb-3">Error Responses</h3>
@@ -533,13 +807,18 @@ NODE_ENV=development</code></pre>
 │   └── errorHandler.js       # Global error handling middleware
 ├── models/
 │   ├── Idea.js              # Idea schema and model
-│   └── User.js              # User schema and model
+│   ├── User.js              # User schema and model
+│   ├── Product.js           # Product schema and model
+│   └── Book.js              # Book schema and model
 ├── routes/
 │   ├── authRouters.js       # Authentication routes
-│   └── ideaRoutes.js        # Idea CRUD routes
+│   ├── ideaRoutes.js        # Idea CRUD routes
+│   ├── productRouters.js    # Product CRUD routes
+│   └── bookRoutes.js        # Book routes
 ├── utils/
 │   ├── generateToken.js     # JWT token generation utility
-│   └── getJWTSecret.js      # JWT secret key utility
+│   ├── getJWTSecret.js      # JWT secret key utility
+│   └── cron.js              # Cron job for server health checks
 ├── server.js                # Express app entry point
 ├── package.json             # Dependencies and scripts
 └── .env                     # Environment variables (not in git)</code></pre>
@@ -553,19 +832,22 @@ NODE_ENV=development</code></pre>
                 </p>
                 <ol class="list-decimal list-inside space-y-3 text-gray-700 mb-4">
                     <li>
-                        <strong>Access Token:</strong> Short-lived token (1 hour) sent in the <code>Authorization</code> header
+                        <strong>Access Token:</strong> Short-lived token (1 hour) sent in the <code>Authorization</code>
+                        header
                         <pre class="mt-2"><code>Authorization: Bearer &lt;access_token&gt;</code></pre>
                     </li>
                     <li>
                         <strong>Refresh Token:</strong> Long-lived token (30 days) stored in HTTP-only cookies
                     </li>
                     <li>
-                        <strong>Token Refresh:</strong> Use the <code>/auth/refresh</code> endpoint to get a new access token using the refresh token cookie
+                        <strong>Token Refresh:</strong> Use the <code>/auth/refresh</code> endpoint to get a new access
+                        token using the refresh token cookie
                     </li>
                 </ol>
                 <div class="mt-4">
                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Protected Routes</h3>
-                    <p class="text-gray-700 mb-2">Routes marked with <code>protect</code> middleware require authentication:</p>
+                    <p class="text-gray-700 mb-2">Routes marked with <code>protect</code> middleware require
+                        authentication:</p>
                     <ul class="list-disc list-inside text-gray-700 ml-4">
                         <li><code>POST /ideas</code> - Create idea</li>
                         <li><code>PUT /ideas/:id</code> - Update idea</li>
@@ -579,7 +861,8 @@ NODE_ENV=development</code></pre>
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">⚠️ Error Handling</h2>
                 <p class="text-gray-700 mb-4">The API uses centralized error handling:</p>
                 <ol class="list-decimal list-inside space-y-2 text-gray-700 mb-4">
-                    <li><strong>Error Handler Middleware:</strong> Located in <code>middleware/errorHandler.js</code></li>
+                    <li><strong>Error Handler Middleware:</strong> Located in <code>middleware/errorHandler.js</code>
+                    </li>
                     <li><strong>Error Response Format:</strong> Consistent JSON error responses</li>
                     <li><strong>Status Codes:</strong> Proper HTTP status codes for different error types</li>
                     <li><strong>Stack Traces:</strong> Only shown in development mode</li>
@@ -595,10 +878,10 @@ NODE_ENV=development</code></pre>
             <!-- Usage Examples -->
             <section id="usage-examples" class="bg-white rounded-lg shadow p-6 mb-8">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">💡 Usage Examples</h2>
-                
+
                 <div class="mb-6">
                     <h3 class="text-xl font-semibold text-gray-800 mb-3">Using cURL</h3>
-                    
+
                     <div class="mb-4">
                         <p class="text-gray-700 font-semibold mb-2">Register a new user:</p>
                         <pre><code>curl -X POST http://localhost:6000/api/v1/auth/register \
@@ -637,6 +920,37 @@ NODE_ENV=development</code></pre>
                     <div class="mb-4">
                         <p class="text-gray-700 font-semibold mb-2">Get all ideas:</p>
                         <pre><code>curl -X GET "http://localhost:6000/api/v1/ideas?_limit=5"</code></pre>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-gray-700 font-semibold mb-2">Create a product:</p>
+                        <pre><code>curl -X POST http://localhost:6000/api/v1/products \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Product Name",
+    "price": 99.99,
+    "category": ["Electronics"],
+    "brand": "Brand Name",
+    "quantity": 50,
+    "description": "Product description"
+  }'</code></pre>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-gray-700 font-semibold mb-2">Get all products:</p>
+                        <pre><code>curl -X GET "http://localhost:6000/api/v1/products"</code></pre>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-gray-700 font-semibold mb-2">Create a book:</p>
+                        <pre><code>curl -X POST http://localhost:6000/api/v1/books \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Book Title",
+    "caption": "Book caption",
+    "author": "Author Name",
+    "rating": 4.5
+  }'</code></pre>
                     </div>
                 </div>
 
@@ -678,7 +992,7 @@ console.log(ideaData);</code></pre>
             </section>
 
             <!-- Notes & Security -->
-            <section class="bg-white rounded-lg shadow p-6 mb-8">
+            <section id="notes" class="bg-white rounded-lg shadow p-6 mb-8">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">📝 Notes</h2>
                 <ul class="list-disc list-inside space-y-2 text-gray-700">
                     <li>Passwords must be at least 3 characters long</li>
@@ -687,10 +1001,17 @@ console.log(ideaData);</code></pre>
                     <li>Ideas are sorted by creation date (newest first) when fetching all ideas</li>
                     <li>Only the idea owner can update or delete their ideas</li>
                     <li>Refresh tokens are stored in HTTP-only cookies for security</li>
+                    <li>Product price and quantity must be greater than 0</li>
+                    <li>Product images can be provided as an array of URLs</li>
+                    <li>Product categories can be provided as an array</li>
+                    <li>Book rating must be between 1 and 5</li>
+                    <li>Book image has a default fallback if not provided</li>
+                    <li>A cron job runs automatically to send health check requests every 14 minutes to keep the server
+                        alive</li>
                 </ul>
             </section>
 
-            <section class="bg-white rounded-lg shadow p-6 mb-8">
+            <section id="security" class="bg-white rounded-lg shadow p-6 mb-8">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">🔒 Security Considerations</h2>
                 <ul class="list-disc list-inside space-y-2 text-gray-700">
                     <li>Passwords are hashed using bcrypt</li>
@@ -712,4 +1033,5 @@ console.log(ideaData);</code></pre>
         </footer>
     </div>
 </body>
+
 </html>

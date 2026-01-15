@@ -28,7 +28,7 @@ router.post("/", async (req, res, next) => {
       caption,
       author,
       rating,
-      // image: imageUrl,
+      image: image,
     });
 
     const savedBook = await newBook.save();

@@ -31,12 +31,29 @@ A RESTful API backend for managing ideas with user authentication and authorizat
   - Authorization checks for updates and deletions
   - Tag support for ideas
 
+- **Product Management**
+  - Create, read, update, and delete products
+  - Product listing with full details
+  - Support for categories, brands, colors, sizes
+  - Image array support
+  - Quantity tracking
+
+- **Book Management**
+  - Create and read books
+  - Book listing with ratings
+  - Author and caption support
+  - Image support with default fallback
+
 - **Security**
   - Password hashing with bcrypt
   - JWT-based authentication
   - HTTP-only cookies for refresh tokens
   - CORS enabled
   - Input validation
+
+- **Server Maintenance**
+  - Automated cron job to keep server alive
+  - Periodic health checks every 14 minutes
 
 ## 🛠 Tech Stack
 
@@ -47,6 +64,7 @@ A RESTful API backend for managing ideas with user authentication and authorizat
 - **Security**: bcryptjs for password hashing
 - **Environment**: dotenv
 - **Middleware**: cors, cookie-parser
+- **Scheduling**: cron for automated tasks
 
 ## 📦 Prerequisites
 
@@ -340,6 +358,204 @@ Authorization: Bearer <access_token>
 }
 ```
 
+### Product Endpoints
+
+#### Get All Products
+```http
+GET /products
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Products fetched successfully",
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439013",
+      "name": "Product Name",
+      "price": 99.99,
+      "image": ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
+      "category": ["Electronics", "Gadgets"],
+      "subCategory": "Smartphones",
+      "brand": "Brand Name",
+      "color": "Black",
+      "size": "Large",
+      "quantity": 50,
+      "description": "Product description",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
+```
+
+#### Get Single Product
+```http
+GET /products/:id
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Product fetched successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "Product Name",
+    "price": 99.99,
+    "image": ["https://example.com/image1.jpg"],
+    "category": ["Electronics"],
+    "brand": "Brand Name",
+    "quantity": 50,
+    "description": "Product description",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+#### Create Product
+```http
+POST /products
+Content-Type: application/json
+
+{
+  "name": "Product Name",
+  "price": 99.99,
+  "image": ["https://example.com/image1.jpg"],
+  "category": ["Electronics"],
+  "subCategory": "Smartphones",
+  "brand": "Brand Name",
+  "color": "Black",
+  "size": "Large",
+  "quantity": 50,
+  "description": "Product description"
+}
+```
+
+**Required Fields**: `name`, `price`, `category`, `brand`, `description`
+
+**Response (201 Created)**
+```json
+{
+  "message": "Product created successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "Product Name",
+    "price": 99.99,
+    "image": ["https://example.com/image1.jpg"],
+    "category": ["Electronics"],
+    "brand": "Brand Name",
+    "quantity": 50,
+    "description": "Product description",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+#### Update Product
+```http
+PUT /products/:id
+Content-Type: application/json
+
+{
+  "name": "Updated Product Name",
+  "price": 89.99,
+  "quantity": 45
+}
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Product updated successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "Updated Product Name",
+    "price": 89.99,
+    "quantity": 45,
+    "updatedAt": "2024-01-01T01:00:00.000Z"
+  }
+}
+```
+
+#### Delete Product
+```http
+DELETE /products/:id
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Product deleted successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "Product Name"
+  }
+}
+```
+
+### Book Endpoints
+
+#### Get All Books
+```http
+GET /books
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Books fetched successfully",
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439014",
+      "name": "Book Title",
+      "caption": "Book caption",
+      "author": "Author Name",
+      "rating": 4.5,
+      "image": "https://example.com/book-cover.jpg",
+      "publishedAt": "2024-01-01T00:00:00.000Z",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
+```
+
+#### Create Book
+```http
+POST /books
+Content-Type: application/json
+
+{
+  "name": "Book Title",
+  "caption": "Book caption",
+  "author": "Author Name",
+  "rating": 4.5,
+  "image": "https://example.com/book-cover.jpg"
+}
+```
+
+**Required Fields**: `name`, `caption`, `author`, `rating` (1-5)
+
+**Response (200 OK)**
+```json
+{
+  "message": "Books fetched successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439014",
+    "name": "Book Title",
+    "caption": "Book caption",
+    "author": "Author Name",
+    "rating": 4.5,
+    "image": "https://example.com/book-cover.jpg",
+    "publishedAt": "2024-01-01T00:00:00.000Z",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
 ### Error Responses
 
 All error responses follow this format:
@@ -369,13 +585,18 @@ idea-drop/
 │   └── errorHandler.js       # Global error handling middleware
 ├── models/
 │   ├── Idea.js              # Idea schema and model
-│   └── User.js              # User schema and model
+│   ├── User.js              # User schema and model
+│   ├── Product.js           # Product schema and model
+│   └── Book.js              # Book schema and model
 ├── routes/
 │   ├── authRouters.js       # Authentication routes
-│   └── ideaRoutes.js        # Idea CRUD routes
+│   ├── ideaRoutes.js        # Idea CRUD routes
+│   ├── productRouters.js    # Product CRUD routes
+│   └── bookRoutes.js        # Book routes
 ├── utils/
 │   ├── generateToken.js     # JWT token generation utility
-│   └── getJWTSecret.js      # JWT secret key utility
+│   ├── getJWTSecret.js      # JWT secret key utility
+│   └── cron.js              # Cron job for server health checks
 ├── server.js                # Express app entry point
 ├── package.json             # Dependencies and scripts
 └── .env                     # Environment variables (not in git)
@@ -517,6 +738,12 @@ Currently, no test suite is configured. To add tests:
 - Ideas are sorted by creation date (newest first) when fetching all ideas
 - Only the idea owner can update or delete their ideas
 - Refresh tokens are stored in HTTP-only cookies for security
+- Product price and quantity must be greater than 0
+- Product images can be provided as an array of URLs
+- Product categories can be provided as an array
+- Book rating must be between 1 and 5
+- Book image has a default fallback if not provided
+- A cron job runs automatically to send health check requests every 14 minutes to keep the server alive
 
 ## 🔒 Security Considerations
 
@@ -533,7 +760,7 @@ ISC
 
 ## 👤 Author
 
-Your Name
+Munaa Tsetsegmaa
 
 ---
 

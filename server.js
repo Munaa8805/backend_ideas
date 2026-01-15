@@ -11,6 +11,7 @@ import authRouters from "./routes/authRouters.js";
 import productRoutes from "./routes/productRouters.js";
 import bookRoutes from "./routes/bookRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import job from "./utils/cron.js";
 
 dotenv.config();
 
@@ -36,6 +37,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cookieParser());
+
+job.start();
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
