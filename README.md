@@ -44,6 +44,13 @@ A RESTful API backend for managing ideas with user authentication and authorizat
   - Author and caption support
   - Image support with default fallback
 
+- **Category Management**
+  - Create, read, update, and delete categories
+  - Category listing with full details
+  - Unique category names (lowercase)
+  - Image support with default fallback
+  - Slug generation support
+
 - **Security**
   - Password hashing with bcrypt
   - JWT-based authentication
@@ -556,6 +563,125 @@ Content-Type: application/json
 }
 ```
 
+### Category Endpoints
+
+#### Get All Categories
+```http
+GET /categories
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Categories fetched successfully",
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439015",
+      "name": "electronics",
+      "description": "Electronic products and gadgets",
+      "image": "https://example.com/category-image.jpg",
+      "slug": "electronics",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
+```
+
+#### Get Single Category
+```http
+GET /categories/:id
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Category fetched successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439015",
+    "name": "electronics",
+    "description": "Electronic products and gadgets",
+    "image": "https://example.com/category-image.jpg",
+    "slug": "electronics",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+#### Create Category
+```http
+POST /categories
+Content-Type: application/json
+
+{
+  "name": "Electronics",
+  "description": "Electronic products and gadgets"
+}
+```
+
+**Required Fields**: `name` (min 3, max 50 chars), `description` (min 3, max 200 chars)
+
+**Note**: Category name is automatically converted to lowercase and must be unique.
+
+**Response (201 Created)**
+```json
+{
+  "message": "Category created successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439015",
+    "name": "electronics",
+    "description": "Electronic products and gadgets",
+    "image": "https://res.cloudinary.com/drneyxkqq/image/upload/v1768087485/samples/balloons.jpg",
+    "slug": "electronics",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+#### Update Category
+```http
+PUT /categories/:id
+Content-Type: application/json
+
+{
+  "name": "Updated Electronics",
+  "description": "Updated description"
+}
+```
+
+**Note**: Fields are optional. Only provided fields will be updated (minimum 3 characters required for updates).
+
+**Response (200 OK)**
+```json
+{
+  "message": "Category updated successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439015",
+    "name": "updated electronics",
+    "description": "Updated description",
+    "image": "https://example.com/category-image.jpg",
+    "slug": "updated-electronics",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T01:00:00.000Z"
+  }
+}
+```
+
+#### Delete Category
+```http
+DELETE /categories/:id
+```
+
+**Response (200 OK)**
+```json
+{
+  "message": "Category deleted successfully",
+  "data": null
+}
+```
+
 ### Error Responses
 
 All error responses follow this format:
@@ -580,19 +706,24 @@ All error responses follow this format:
 idea-drop/
 ├── config/
 │   └── db.js                 # MongoDB connection configuration
+├── controllers/
+│   └── categories.js        # Category controller functions
 ├── middleware/
 │   ├── authMiddleware.js     # JWT authentication middleware
-│   └── errorHandler.js       # Global error handling middleware
+│   ├── errorHandler.js       # Global error handling middleware
+│   └── asyncHandler.js       # Async error handler wrapper
 ├── models/
 │   ├── Idea.js              # Idea schema and model
 │   ├── User.js              # User schema and model
 │   ├── Product.js           # Product schema and model
-│   └── Book.js              # Book schema and model
+│   ├── Book.js              # Book schema and model
+│   └── Category.js          # Category schema and model
 ├── routes/
 │   ├── authRouters.js       # Authentication routes
 │   ├── ideaRoutes.js        # Idea CRUD routes
 │   ├── productRouters.js    # Product CRUD routes
-│   └── bookRoutes.js        # Book routes
+│   ├── bookRoutes.js        # Book routes
+│   └── categories.js        # Category CRUD routes
 ├── utils/
 │   ├── generateToken.js     # JWT token generation utility
 │   ├── getJWTSecret.js      # JWT secret key utility
@@ -684,6 +815,21 @@ curl -X POST http://localhost:6000/api/v1/ideas \
 curl -X GET "http://localhost:6000/api/v1/ideas?_limit=5"
 ```
 
+**Create a category:**
+```bash
+curl -X POST http://localhost:6000/api/v1/categories \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Electronics",
+    "description": "Electronic products and gadgets"
+  }'
+```
+
+**Get all categories:**
+```bash
+curl -X GET "http://localhost:6000/api/v1/categories"
+```
+
 ### Using JavaScript (Fetch API)
 
 ```javascript
@@ -743,6 +889,9 @@ Currently, no test suite is configured. To add tests:
 - Product categories can be provided as an array
 - Book rating must be between 1 and 5
 - Book image has a default fallback if not provided
+- Category names are automatically converted to lowercase and must be unique
+- Category name and description must be at least 3 characters long
+- Category updates are partial - only provided fields are updated
 - A cron job runs automatically to send health check requests every 14 minutes to keep the server alive
 
 ## 🔒 Security Considerations

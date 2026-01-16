@@ -184,6 +184,17 @@
                     </div>
 
                     <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Category Management</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                            <li>Create, read, update, and delete categories</li>
+                            <li>Category listing with full details</li>
+                            <li>Unique category names (lowercase)</li>
+                            <li>Image support with default fallback</li>
+                            <li>Slug generation support</li>
+                        </ul>
+                    </div>
+
+                    <div>
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Security</h3>
                         <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
                             <li>Password hashing with bcrypt</li>
@@ -777,6 +788,133 @@ NODE_ENV=development</code></pre>
                     </div>
                 </div>
 
+                <!-- Category Endpoints -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Category Endpoints</h3>
+
+                    <!-- Get All Categories -->
+                    <div class="mb-6 border-l-4 border-blue-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-get">GET</span>
+                            Get All Categories
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>GET /categories</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Categories fetched successfully",
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439015",
+      "name": "electronics",
+      "description": "Electronic products and gadgets",
+      "image": "https://example.com/category-image.jpg",
+      "slug": "electronics",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}</code></pre>
+                    </div>
+
+                    <!-- Get Single Category -->
+                    <div class="mb-6 border-l-4 border-blue-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-get">GET</span>
+                            Get Single Category
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>GET /categories/:id</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Category fetched successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439015",
+    "name": "electronics",
+    "description": "Electronic products and gadgets",
+    "image": "https://example.com/category-image.jpg",
+    "slug": "electronics",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Create Category -->
+                    <div class="mb-6 border-l-4 border-green-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-post">POST</span>
+                            Create Category
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>POST /categories</code></p>
+                        <p class="text-gray-700 mb-2"><strong>Required Fields:</strong> <code>name</code> (min 3, max 50
+                            chars), <code>description</code> (min 3, max 200 chars)</p>
+                        <p class="text-gray-700 mb-2 text-sm italic">Note: Category name is automatically converted to
+                            lowercase and must be unique.</p>
+                        <pre><code>Content-Type: application/json
+
+{
+  "name": "Electronics",
+  "description": "Electronic products and gadgets"
+}</code></pre>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (201 Created)</p>
+                        <pre><code>{
+  "message": "Category created successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439015",
+    "name": "electronics",
+    "description": "Electronic products and gadgets",
+    "image": "https://res.cloudinary.com/drneyxkqq/image/upload/v1768087485/samples/balloons.jpg",
+    "slug": "electronics",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Update Category -->
+                    <div class="mb-6 border-l-4 border-yellow-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-put">PUT</span>
+                            Update Category
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>PUT /categories/:id</code></p>
+                        <p class="text-gray-700 mb-2 text-sm italic">Note: Fields are optional. Only provided fields
+                            will be updated (minimum 3 characters required for updates).</p>
+                        <pre><code>Content-Type: application/json
+
+{
+  "name": "Updated Electronics",
+  "description": "Updated description"
+}</code></pre>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Category updated successfully",
+  "data": {
+    "_id": "507f1f77bcf86cd799439015",
+    "name": "updated electronics",
+    "description": "Updated description",
+    "image": "https://example.com/category-image.jpg",
+    "slug": "updated-electronics",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T01:00:00.000Z"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Delete Category -->
+                    <div class="mb-6 border-l-4 border-red-500 pl-4">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                            <span class="endpoint-badge badge-delete">DELETE</span>
+                            Delete Category
+                        </h4>
+                        <p class="text-gray-700 mb-2"><code>DELETE /categories/:id</code></p>
+                        <p class="text-gray-700 mt-3 font-semibold">Response (200 OK)</p>
+                        <pre><code>{
+  "message": "Category deleted successfully",
+  "data": null
+}</code></pre>
+                    </div>
+                </div>
+
                 <!-- Error Responses -->
                 <div class="mb-6">
                     <h3 class="text-xl font-semibold text-gray-800 mb-3">Error Responses</h3>
@@ -802,19 +940,24 @@ NODE_ENV=development</code></pre>
                 <pre><code>idea-drop/
 ├── config/
 │   └── db.js                 # MongoDB connection configuration
+├── controllers/
+│   └── categories.js        # Category controller functions
 ├── middleware/
 │   ├── authMiddleware.js     # JWT authentication middleware
-│   └── errorHandler.js       # Global error handling middleware
+│   ├── errorHandler.js       # Global error handling middleware
+│   └── asyncHandler.js       # Async error handler wrapper
 ├── models/
 │   ├── Idea.js              # Idea schema and model
 │   ├── User.js              # User schema and model
 │   ├── Product.js           # Product schema and model
-│   └── Book.js              # Book schema and model
+│   ├── Book.js              # Book schema and model
+│   └── Category.js          # Category schema and model
 ├── routes/
 │   ├── authRouters.js       # Authentication routes
 │   ├── ideaRoutes.js        # Idea CRUD routes
 │   ├── productRouters.js    # Product CRUD routes
-│   └── bookRoutes.js        # Book routes
+│   ├── bookRoutes.js        # Book routes
+│   └── categories.js        # Category CRUD routes
 ├── utils/
 │   ├── generateToken.js     # JWT token generation utility
 │   ├── getJWTSecret.js      # JWT secret key utility
@@ -952,6 +1095,21 @@ NODE_ENV=development</code></pre>
     "rating": 4.5
   }'</code></pre>
                     </div>
+
+                    <div class="mb-4">
+                        <p class="text-gray-700 font-semibold mb-2">Create a category:</p>
+                        <pre><code>curl -X POST http://localhost:6000/api/v1/categories \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Electronics",
+    "description": "Electronic products and gadgets"
+  }'</code></pre>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-gray-700 font-semibold mb-2">Get all categories:</p>
+                        <pre><code>curl -X GET "http://localhost:6000/api/v1/categories"</code></pre>
+                    </div>
                 </div>
 
                 <div>
@@ -1006,6 +1164,9 @@ console.log(ideaData);</code></pre>
                     <li>Product categories can be provided as an array</li>
                     <li>Book rating must be between 1 and 5</li>
                     <li>Book image has a default fallback if not provided</li>
+                    <li>Category names are automatically converted to lowercase and must be unique</li>
+                    <li>Category name and description must be at least 3 characters long</li>
+                    <li>Category updates are partial - only provided fields are updated</li>
                     <li>A cron job runs automatically to send health check requests every 14 minutes to keep the server
                         alive</li>
                 </ul>
