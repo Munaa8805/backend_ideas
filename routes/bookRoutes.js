@@ -5,50 +5,7 @@ import cloudinary from "../utils/cloudinary.js";
 
 const router = express.Router();
 
-/**
- * Create a new book with image upload to Cloudinary
- * @route POST /api/v1/books
- * @access Public
- */
 
-router.post("/mobile/create", async (req, res, next) => {
-  try {
-    const { name, caption, author, rating, image } = req.body;
-    console.log("title", name);
-    console.log("caption", caption);
-    console.log("author", author);
-    console.log("rating", rating);
-    console.log("image", image);
-
-    if (!image || !name || !caption || !rating) {
-      return res.status(400).json({ message: "Please provide all fields" });
-    }
-
-    const uploadResponse = await cloudinary.uploader.upload(image);
-    const imageUrl = uploadResponse.secure_url;
-
-    // save to the database
-    const newBook = new Book({
-      name,
-      caption,
-      author,
-      rating,
-      image: imageUrl,
-      // user: req.user._id,
-    });
-    console.log("newBook", newBook);
-
-    //
-
-    res.status(201).json({
-      message: "Book created successfully",
-      data: {},
-    });
-  } catch (error) {
-    console.log("Error creating book", error);
-    res.status(500).json({ message: error.message });
-  }
-});
 
 router.post("/", async (req, res, next) => {
   try {
@@ -70,6 +27,7 @@ router.post("/", async (req, res, next) => {
       caption,
       author,
       rating,
+     
     });
 
     const savedBook = await newBook.save();

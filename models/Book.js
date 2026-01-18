@@ -15,13 +15,14 @@ const bookSchema = new mongoose.Schema(
     },
     author: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
     rating: {
       type: Number,
-      required: true,
+      required: [true, "Rating is required for the book. It must be between 1 and 5."],
       trim: true,
+      default: 3,
       min: 1,
       max: 5,
     },

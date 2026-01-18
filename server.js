@@ -11,6 +11,7 @@ import ideaRoutes from "./routes/ideaRoutes.js";
 import authRouters from "./routes/authRouters.js";
 import productRoutes from "./routes/productRouters.js";
 import bookRoutes from "./routes/bookRoutes.js";
+import mobileRoute from "./routes/mobileRoute.js";
 
 import { errorHandler } from "./middleware/errorHandler.js";
 import job from "./utils/cron.js";
@@ -29,13 +30,14 @@ const options = {
   origin: [
     "http://localhost:3000",
     "https://shopping-frontend-seven.vercel.app/",
+
   ],
 };
 colors.enable();
 // Connect to MongoDB
 connectDB();
 
-app.use(cors(options));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -56,6 +58,7 @@ app.use("/api/v1/auth", authRouters);
 app.use("/api/v1/ideas", ideaRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/books", bookRoutes);
+app.use("/api/v1/mobile", mobileRoute);
 app.use("/api/v1/categories", categoreisRoutes);
 
 app.use((req, res, next) => {
